@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "compression": "^1.7.4",
+    "countapi-js": "^1.0.2",
     "express": "^4.17.2",
     "helmet": "^5.0.2",
     "moment": "^2.29.1",

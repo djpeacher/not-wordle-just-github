@@ -1,6 +1,7 @@
 const path = require('path');
 const helmet = require('helmet');
 const express = require('express');
+const countapi = require('countapi-js');
 const compression = require('compression');
 const fetch = require('node-fetch');
 var moment = require('moment');
@@ -10,6 +11,11 @@ app.use(helmet());
 app.use(compression());
 app.use(express.static('public'));
 app.set('json spaces', 2);
+
+const COUNTAPI = {
+  NAMESPACE: process.env.COUNTAPI_NAMESPACE || 'not-wordle-just-github',
+  KEY: process.env.COUNTAPI_KEY || 'grids-generated',
+};
 
 function zip(arrays) {
   return arrays[0]
@@ -39,6 +45,9 @@ app.get('/api', (req, res) => {
         .sort((a, b) => (a.date > b.date ? 1 : -1))
         .slice(0, 30)
         .map((c) => (c.count ? '🟩' : '⬜️'));
+      countapi
+        .hit(COUNTAPI.NAMESPACE, COUNTAPI.KEY)
+        .catch((e) => console.error(e));
       res.send(
         'Not Wordle, just my GitHub contributions activity\n\n' +
           createGrid(contributions)
@@ -47,6 +56,18 @@ app.get('/api', (req, res) => {
     .catch((e) => {
       console.error(e);
       res.send(e.message);
+    });
+});
+
+app.get('/api/stats', (req, res) => {
+  countapi
+    .info(COUNTAPI.NAMESPACE, COUNTAPI.KEY)
+    .then((result) => {
+      res.send({ grids_generated: result.value });
+    })
+    .catch((e) => {
+      console.error(e);
+      res.status(503).json({ error: 'Service Unavailable' });
     });
 });
 
