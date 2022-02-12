@@ -1,5 +1,4 @@
 const path = require('path');
-const helmet = require('helmet');
 const express = require('express');
 const countapi = require('countapi-js');
 const compression = require('compression');
@@ -7,7 +6,6 @@ const fetch = require('node-fetch');
 var moment = require('moment');
 
 const app = express();
-app.use(helmet());
 app.use(compression());
 app.use(express.static('public'));
 app.set('json spaces', 2);
