@@ -12,7 +12,8 @@ app.set('json spaces', 2);
 
 const COUNTAPI = {
   NAMESPACE: process.env.COUNTAPI_NAMESPACE || 'not-wordle-just-github',
-  KEY: process.env.COUNTAPI_KEY || 'grids-generated',
+  GEN_KEY: process.env.COUNTAPI_GEN_KEY || 'grids-generated',
+  INDEX_KEY: process.env.COUNTAPI_INDEX_KEY || 'index-visits',
 };
 
 function zip(arrays) {
@@ -44,7 +45,7 @@ app.get('/api', (req, res) => {
         .slice(0, 30)
         .map((c) => (c.count ? '🟩' : '⬜️'));
       countapi
-        .hit(COUNTAPI.NAMESPACE, COUNTAPI.KEY)
+        .hit(COUNTAPI.NAMESPACE, COUNTAPI.GEN_KEY)
         .catch((e) => console.error(e));
       res.send(
         'Not Wordle, just my GitHub contributions activity\n\n' +
@@ -59,7 +60,7 @@ app.get('/api', (req, res) => {
 
 app.get('/api/stats', (req, res) => {
   countapi
-    .info(COUNTAPI.NAMESPACE, COUNTAPI.KEY)
+    .info(COUNTAPI.NAMESPACE, COUNTAPI.GEN_KEY)
     .then((result) => {
       res.send({ grids_generated: result.value });
     })
@@ -70,6 +71,9 @@ app.get('/api/stats', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+  countapi
+    .hit(COUNTAPI.NAMESPACE, COUNTAPI.INDEX_KEY)
+    .catch((e) => console.error(e));
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
