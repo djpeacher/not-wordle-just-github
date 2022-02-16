@@ -7,3 +7,11 @@
 input {
   width: 100%;
 }
+
+/* underline on hover */
+:not(nav) > a {
+  text-decoration: none;
+}
+:not(nav) > a:hover {
+  text-decoration: underline;
+}
