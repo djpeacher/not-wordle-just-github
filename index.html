@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="twa.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
     <title>not-wordle-just-github</title>
@@ -30,21 +32,22 @@
           hx-indicator=".htmx-indicator"
         />
       </p>
-      <pre id="search-results">👆🏼👆🏼👆🏼</pre>
-      <p class="htmx-indicator">Loading...</p>
+      <span id="search-results"></span>
+      <span class="htmx-indicator">Loading...</span>
     </main>
     <footer>
+      <nav>
+        <a href="https://github.com/djpeacher/not-wordle-just-github" target="_blank">GitHub</a>
+      </nav>
       <p>
-        made by <a href="https://twitter.com/_djpeacher" target="_blank">@_djpeacher</a>
+        Made with <i class="twa twa-red-heart"></i> by
+        <a href="https://www.djpeacher.com" target="_blank">Jonathan Peacher</a>
       </p>
       <p>
-        inspired by <a href="https://twitter.com/iamdevloper/status/1487106952261943297?s=20&t=vRaN_v9sXqLk782D2fiBmg" target="_blank">@iamdevloper</a>
+        Inspired by <a href="https://twitter.com/iamdevloper/status/1487106952261943297?s=20&t=vRaN_v9sXqLk782D2fiBmg" target="_blank">@iamdevloper</a>
       </p>
       <p>
-        api by <a href="https://twitter.com/sallar" target="_blank">@sallar</a>
-      </p>
-      <p>
-        view on <a href="https://github.com/djpeacher/not-wordle-just-github" target="_blank" >GitHub</a>
+        Github API by <a href="https://twitter.com/sallar" target="_blank">@sallar</a>
       </p>
     </footer>
   </body>

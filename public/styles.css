@@ -1,0 +1,9 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent: #809fff;
+  }
+}
+
+input {
+  width: 100%;
+}

@@ -4,8 +4,15 @@ const countapi = require('countapi-js');
 const compression = require('compression');
 const fetch = require('node-fetch');
 var moment = require('moment');
+var helmet = require('helmet');
 
 const app = express();
+app.use(
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: false,
+  })
+);
 app.use(compression());
 app.use(express.static('public'));
 app.set('json spaces', 2);
@@ -48,13 +55,14 @@ app.get('/api', (req, res) => {
         .hit(COUNTAPI.NAMESPACE, COUNTAPI.GEN_KEY)
         .catch((e) => console.error(e));
       res.send(
-        'Not Wordle, just my GitHub contributions activity\n\n' +
-          createGrid(contributions)
+        `<pre>Not Wordle, just my GitHub contributions activity\n\n${createGrid(
+          contributions
+        )}\n\nnot-wordle-just-github.djpeacher.com</pre>`
       );
     })
     .catch((e) => {
       console.error(e);
-      res.send(e.message);
+      res.send(`<pre>${e.message}</pre>`);
     });
 });
 
